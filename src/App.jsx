@@ -7,6 +7,7 @@ import Todos from './pages/Todos';
 import Posts from './pages/Posts';
 import Albums from './pages/Albums';
 import Info from './pages/Info';
+import './App.css';
 
 const ProtectedRoute = ({ children }) => {
   const { user } = useAuth();
