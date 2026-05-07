@@ -9,7 +9,7 @@ const Posts = () => {
   const [search, setSearch] = useState('');
 
   useEffect(() => {
-    fetch(`http://localhost:3000/posts?userId=${user.id}`)
+    fetch(`http://localhost:3000/posts`)
       .then(res => res.json())
       .then(setPosts);
   }, [user.id]);
