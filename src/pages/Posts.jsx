@@ -1,56 +1,93 @@
 import { useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 const Posts = () => {
   const { user } = useAuth();
+  const { postId } = useParams();
+  const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
   const [selectedPost, setSelectedPost] = useState(null);
   const [comments, setComments] = useState([]);
   const [search, setSearch] = useState('');
+  const [showComments, setShowComments] = useState(false);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/posts`)
+    fetch(`http://localhost:3000/posts?userId=${user.id}`)
       .then(res => res.json())
       .then(setPosts);
   }, [user.id]);
 
-  const viewPost = async (post) => {
-    setSelectedPost(post);
-    const res = await fetch(`http://localhost:3000/comments?postId=${post.id}`);
-    const data = await res.json();
-    setComments(data);
-  };
+  // כשה-URL משתנה ל-postId — טען את הפוסט
+  useEffect(() => {
+    if (postId) {
+      fetch(`http://localhost:3000/posts/${postId}`)
+        .then(res => res.json())
+        .then(setSelectedPost);
+    } else {
+      setSelectedPost(null);
+      setShowComments(false);
+    }
+  }, [postId]);
 
-  const filteredPosts = posts.filter(p => p.title.includes(search));
+  // כשעוברים ל-comments — טען תגובות
+  useEffect(() => {
+    if (postId && showComments) {
+      fetch(`http://localhost:3000/comments?postId=${postId}`)
+        .then(res => res.json())
+        .then(setComments);
+    }
+  }, [postId, showComments]);
 
-  return (
-    <div style={{ display: 'flex', padding: '20px', gap: '20px' }}>
-      <div style={{ flex: 1 }}>
-        <h3>הפוסטים שלי</h3>
-        <input placeholder="חיפוש פוסט..." onChange={(e) => setSearch(e.target.value)} />
-        <ul>
-          {filteredPosts.map(post => (
-            <li key={post.id} style={{ marginBottom: '10px' }}>
-              <b>{post.id}: {post.title}</b> <br />
-              <button onClick={() => viewPost(post)}>הצג תוכן ותגובות</button>
-            </li>
-          ))}
-        </ul>
+  const filteredPosts = posts.filter(p =>
+    p.title.toLowerCase().includes(search.toLowerCase())
+  );
+
+  // מצב: הצגת פוסט בודד
+  if (postId && selectedPost) {
+    return (
+      <div style={{ padding: '20px' }}>
+        <button onClick={() => navigate('/home/posts')}>חזור לפוסטים</button>
+        <h3>{selectedPost.title}</h3>
+        <p>{selectedPost.body}</p>
+        <button onClick={() => {
+          setShowComments(true);
+          navigate(`/home/posts/${postId}/comments`);
+        }}>
+          הצג תגובות
+        </button>
+        {showComments && (
+          <>
+            <h4>תגובות ({comments.length})</h4>
+            {comments.map(c => (
+              <div key={c.id} style={{ background: '#f9f9f9', marginBottom: '5px' }}>
+                <b>{c.name}:</b> {c.body}
+              </div>
+            ))}
+          </>
+        )}
       </div>
+    );
+  }
 
-      {selectedPost && (
-        <div style={{ flex: 1, border: '1px solid #ccc', padding: '15px' }}>
-          <h4>תוכן הפוסט</h4>
-          <p>{selectedPost.body}</p>
-          <hr />
-          <h5>תגובות ({comments.length})</h5>
-          {comments.map(c => (
-            <div key={c.id} style={{ fontSize: '0.9em', background: '#f9f9f9', marginBottom: '5px' }}>
-              <b>{c.name}:</b> {c.body}
-            </div>
-          ))}
-        </div>
-      )}
+  // מצב: רשימת פוסטים
+  return (
+    <div style={{ padding: '20px' }}>
+      <h3>הפוסטים שלי</h3>
+      <input
+        placeholder="חיפוש פוסט..."
+        onChange={(e) => setSearch(e.target.value)}
+      />
+      <ul>
+        {filteredPosts.map(post => (
+          <li key={post.id}>
+            <b>{post.id}: {post.title}</b>
+            <button onClick={() => navigate(`/home/posts/${post.id}`)}>
+              הצג פוסט
+            </button>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

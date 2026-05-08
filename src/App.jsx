@@ -25,7 +25,11 @@ function App() {
           <Route path="/home/info" element={<ProtectedRoute><Info /></ProtectedRoute>} />
           <Route path="/home/todos" element={<ProtectedRoute><Todos /></ProtectedRoute>} />
           <Route path="/home/posts" element={<ProtectedRoute><Posts /></ProtectedRoute>} />
+          <Route path="/home/posts/:postId" element={<ProtectedRoute><Posts /></ProtectedRoute>} />
+          <Route path="/home/posts/:postId/comments" element={<ProtectedRoute><Posts /></ProtectedRoute>} />
           <Route path="/home/albums" element={<ProtectedRoute><Albums /></ProtectedRoute>} />
+          <Route path="/home/albums/:albumId" element={<ProtectedRoute><Albums /></ProtectedRoute>} />
+          <Route path="/home/albums/:albumId/photos" element={<ProtectedRoute><Albums /></ProtectedRoute>} />
           <Route path="/" element={<Navigate to="/login" />} />
         </Routes>
       </Router>
