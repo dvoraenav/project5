@@ -10,24 +10,25 @@ const MapPinIcon = () => (
 );
 
 const Info = () => {
-  const { user } = useAuth();
-  const navigate = useNavigate();
+  const { user } = useAuth(); // Get current user data from context
+  const navigate = useNavigate(); // Hook for navigation
 
-  // אם המשתמש לא נטען עדיין
+  // Prevent rendering if user data is not yet loaded
   if (!user) return null;
 
-  // שליפת האות הראשונה של השם לאווטאר
+  // Generate an avatar initial based on the first letter of the user's name
   const firstLetter = user.name ? user.name.charAt(0).toUpperCase() : '?';
 
   return (
     <div className="content-container">
+      {/* Back button triggers browser's history back action */}
       <button className="secondary-btn" onClick={() => navigate(-1)} style={{ marginBottom: '20px' }}>
         ← Back
       </button>
 
       <div className="card" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '50px 20px' }}>
         
-        {/* Avatar Area */}
+        {/* Avatar Area: Visual circle representing the user */}
         <div style={{
           width: '100px',
           height: '100px',
@@ -45,7 +46,7 @@ const Info = () => {
           {firstLetter}
         </div>
 
-        {/* User Name & Subtitle */}
+        {/* Profile Header: Name and dynamic username generation */}
         <h2 style={{ margin: '0 0 5px 0', fontSize: '2rem', color: 'var(--text-main)' }}>
           {user.name}
         </h2>
@@ -53,10 +54,10 @@ const Info = () => {
           @{user.username || user.name.toLowerCase().replace(/\s/g, '')}
         </p>
 
-        {/* Personal Info List */}
+        {/* Personal Details Section */}
         <div style={{ width: '100%', maxWidth: '450px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
           
-          {/* Email Info Box */}
+          {/* Email Information Box */}
           <div style={{ 
             display: 'flex', 
             alignItems: 'center', 
@@ -79,7 +80,7 @@ const Info = () => {
             </div>
           </div>
 
-          {/* Location Info Box */}
+          {/* Location Information Box: Safe access to nested address object */}
           <div style={{ 
             display: 'flex', 
             alignItems: 'center', 
