@@ -74,7 +74,7 @@ const Albums = () => {
   const handleEditAlbum = async (album, e) => {
     e.stopPropagation(); // Prevent navigation during edit mode
     
-    if (editingAlbumId === album.id) {
+    
       // --- Save Mode ---
       const res = await fetch(`http://localhost:3000/albums/${album.id}`, {
         method: 'PUT',
@@ -86,11 +86,7 @@ const Albums = () => {
         setAlbums(albums.map(a => a.id === album.id ? { ...a, title: editingTitle } : a));
         setEditingAlbumId(null); // Exit edit mode
       }
-    } else {
-      // --- Enter Edit Mode ---
-      setEditingAlbumId(album.id);
-      setEditingTitle(album.title);
-    }
+  
   };
 
   // Filtering logic based on chosen criteria (Title or ID)
