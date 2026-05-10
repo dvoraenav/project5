@@ -9,6 +9,8 @@ const Albums = () => {
   const { albumId } = useParams(); // Check if a specific album is selected via URL parameters
   const navigate = useNavigate(); // Hook for programmatic navigation
 
+  const userId = user?.id;
+
   // --- State Management ---
   const [albums, setAlbums] = useState([]); // List of albums owned by the user
   const [searchValue, setSearchValue] = useState(''); // Text for filtering albums
@@ -101,7 +103,7 @@ const Albums = () => {
   if (albumId) {
     return (
       <div className="content-container">
-        <button className="secondary-btn" onClick={() => navigate('/home/albums')} style={{marginBottom: '20px'}}>
+        <button className="secondary-btn" onClick={() => navigate(`/users/${userId}/albums`)} style={{marginBottom: '20px'}}>
           ← back to albums
         </button>
         <Photos albumId={albumId} />
@@ -133,7 +135,7 @@ const Albums = () => {
       {/* Album List Grid */}
       <div className="albums-grid">
         {filteredAlbums.map(album => (
-          <div key={album.id} className="album-card" onClick={() => !editingAlbumId && navigate(`/home/albums/${album.id}`)}>
+          <div key={album.id} className="album-card" onClick={() => !editingAlbumId && navigate(`/users/${userId}/albums/${album.id}`)}>
             <div>
               <span style={{fontSize: '0.75rem', fontWeight: 'bold', color: 'var(--brand-primary)'}}>#{album.id}</span>
               {/* Conditional rendering for editing title vs. displaying title */}

@@ -22,6 +22,8 @@ const Posts = () => {
   const navigate = useNavigate();
   const commentInputRef = useRef(null);
 
+  const userId = user?.id;
+
   // States
   const [posts, setPosts] = useState([]);
   const [selectedPost, setSelectedPost] = useState(null);
@@ -111,7 +113,7 @@ const Posts = () => {
     if (window.confirm("Delete this post permanently?")) {
       await fetch(`http://localhost:3000/posts/${id}`, { method: 'DELETE' });
       setPosts(posts.filter(p => p.id !== id));
-      if (postId === id.toString()) navigate('/home/posts');
+      if (postId === id.toString()) navigate(`/users/${userId}/posts`);
     }
   };
 
@@ -176,7 +178,7 @@ const Posts = () => {
   if (postId && selectedPost) {
     return (
       <div className="content-container">
-        <button className="secondary-btn" onClick={() => navigate('/home/posts')} style={{marginBottom: '20px'}}>
+        <button className="secondary-btn" onClick={() => navigate(`/users/${userId}/posts`)} style={{marginBottom: '20px'}}>
           ← Back to Feed
         </button>
         
@@ -312,7 +314,7 @@ const Posts = () => {
       {/* Posts Grid */}
       <div>
         {filteredPosts.map(post => (
-          <div key={post.id} className="card" style={{cursor: 'pointer'}} onClick={() => navigate(`/home/posts/${post.id}`)}>
+          <div key={post.id} className="card" style={{cursor: 'pointer'}} onClick={() => navigate(`/users/${userId}/posts/${post.id}`)}>
             <div style={{display: 'flex', alignItems: 'center', gap: '12px'}}>
               <span style={{background: '#EEF2FF', color: 'var(--brand-primary)', padding: '4px 8px', borderRadius: '6px', fontSize: '0.8rem', fontWeight: 'bold'}}>
                 #{post.id}

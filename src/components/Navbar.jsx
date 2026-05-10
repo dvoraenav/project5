@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 // Logout Icon SVG
@@ -13,6 +13,8 @@ const LogoutIcon = () => (
 const Navbar = () => {
   const { user, logout } = useAuth(); // Assuming logout exists in your context
   const navigate = useNavigate();
+
+  const userId = user?.id;
 
   const handleLogout = () => {
     // If you have a logout function in AuthContext, call it here. 
@@ -36,21 +38,21 @@ const Navbar = () => {
       {/* Main Navigation Links */}
       <div className="nav-links">
         <NavLink 
-          to="/home/posts" 
+          to={`/users/${userId}/posts`}
           className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}
         >
           Feed
         </NavLink>
         
         <NavLink 
-          to="/home/albums" 
+          to={`/users/${userId}/albums`}
           className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}
         >
           Albums
         </NavLink>
         
         <NavLink 
-          to="/home/todos" 
+          to={`/users/${userId}/todos`}
           className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}
         >
           Tasks
@@ -60,7 +62,7 @@ const Navbar = () => {
       {/* User Profile & Logout */}
       <div className="nav-profile">
         <NavLink 
-          to="/home/info" 
+          to={`/users/${userId}/info`} 
           className={({ isActive }) => isActive ? "profile-link active" : "profile-link"}
           title="My Profile"
         >

@@ -21,7 +21,7 @@ const Login = () => {
       // Authentication logic: Check if user exists and verify password (website field used as password)
       if (data[0] && data[0].website === form.password) {
         login(data[0]); // Update global auth state
-        navigate('/home'); // Redirect to protected route
+        navigate(`/users/${data[0].id}`); // Redirect to protected route
       } else {
         setError("Invalid username or password. Please try again.");
       }
