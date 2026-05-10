@@ -6,7 +6,7 @@ const Photos = ({ albumId }) => {
   const { user } = useAuth();
   
   // --- State Management ---
-  const [allPhotos, setAllPhotos] = useState([]); // Stores the full list of photos for the current album
+  //const [allPhotos, setAllPhotos] = useState([]); // Stores the full list of photos for the current album
   const [visiblePhotos, setVisiblePhotos] = useState([]); // Stores only the photos currently displayed (pagination)
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState('');
@@ -33,24 +33,20 @@ const Photos = ({ albumId }) => {
       .then(data => setAlbumOwnerId(data.userId));
 
     // 2. Fetch all photos belonging to this specific album
-    fetch(`http://localhost:3000/photos?albumId=${albumId}`)
+    fetch(`http://localhost:3000/photos?albumId=${albumId}&_page=1&_limit=${photosPerPage}`)
       .then(res => res.json())
-      .then(data => {
-        // Reverse to show the newest photos first
-        const reversed = data.reverse();
-        setAllPhotos(reversed);
-        // Initialize the visible list with the first page
-        setVisiblePhotos(reversed.slice(0, photosPerPage));
-      });
+      .then(data => setVisiblePhotos(data));
   }, [albumId]);
 
   // Authorization Check: Compare logged-in user ID with album owner ID
   const isOwner = String(albumOwnerId) === String(user.id);
 
   // Pagination Logic: Append the next batch of photos to the visible list
-  const loadMore = () => {
+  const loadMore = async () => {
     const nextPage = page + 1;
-    setVisiblePhotos(allPhotos.slice(0, nextPage * photosPerPage));
+    const res = await fetch(`http://localhost:3000/photos?albumId=${albumId}&_page=${nextPage}&_limit=${photosPerPage}`);
+    const data = await res.json();
+    setVisiblePhotos([...visiblePhotos, ...data]);
     setPage(nextPage);
   };
 
@@ -105,7 +101,7 @@ const Photos = ({ albumId }) => {
       
       if (res.ok) {
         // Sync local state with updated database values
-        setAllPhotos(allPhotos.map(p => p.id === photo.id ? updatedData : p));
+        //setAllPhotos(allPhotos.map(p => p.id === photo.id ? updatedData : p));
         setVisiblePhotos(visiblePhotos.map(p => p.id === photo.id ? updatedData : p));
         setEditingPhotoId(null); // Exit edit mode
       }
@@ -185,7 +181,7 @@ const Photos = ({ albumId }) => {
       </div>
 
       {/* Infinite Scroll / Load More Logic */}
-      {visiblePhotos.length < allPhotos.length && (
+      {visiblePhotos.length === page * photosPerPage && (
         <div style={{textAlign: 'center', marginTop: '30px'}}>
           <button className="secondary-btn" onClick={loadMore}>load more</button>
         </div>
