@@ -112,6 +112,13 @@
       "name": "hui",
       "email": "hh@gmail.com",
       "id": "9Hv5usj"
+    },
+    {
+      "username": "Bret1",
+      "website": "11",
+      "name": "b",
+      "email": "b@v.v",
+      "id": "uGyKdmi"
     }
   ],
   "todos": [
@@ -148,14 +155,14 @@
     {
       "userId": 1,
       "id": "8",
-      "title": "quo adipisci enim quam ut ab",
+      "title": "quo adipisci enim quam ut ab fd",
       "completed": true
     },
     {
       "userId": 1,
       "id": "9",
       "title": "molestiae perspiciatis ipsa",
-      "completed": false
+      "completed": true
     },
     {
       "userId": 2,
@@ -227,6 +234,12 @@
       "id": "69",
       "userId": "1",
       "title": "call mom",
+      "completed": true
+    },
+    {
+      "id": "70",
+      "userId": "1",
+      "title": "gfd",
       "completed": true
     }
   ],
@@ -489,11 +502,6 @@
   "albums": [
     {
       "userId": 1,
-      "id": "1",
-      "title": "quidem molestiae enim"
-    },
-    {
-      "userId": 1,
       "id": "2",
       "title": "sunt qui excepturi placeat culpa"
     },
@@ -501,11 +509,6 @@
       "userId": 1,
       "id": "3",
       "title": "omnis laborum odio"
-    },
-    {
-      "userId": 1,
-      "id": "4",
-      "title": "non esse culpa molestiae omnis sed optio"
     },
     {
       "userId": 1,
@@ -690,41 +693,6 @@
   ],
   "photos": [
     {
-      "albumId": 1,
-      "id": "1",
-      "title": "photo 1",
-      "url": "https://picsum.photos/600/600?random=1",
-      "thumbnailUrl": "https://picsum.photos/150/150?random=1"
-    },
-    {
-      "albumId": 1,
-      "id": "2",
-      "title": "photo 2",
-      "url": "https://picsum.photos/600/600?random=2",
-      "thumbnailUrl": "https://picsum.photos/150/150?random=2"
-    },
-    {
-      "albumId": 1,
-      "id": "3",
-      "title": "photo 3",
-      "url": "https://picsum.photos/600/600?random=3",
-      "thumbnailUrl": "https://picsum.photos/150/150?random=3"
-    },
-    {
-      "albumId": 1,
-      "id": "4",
-      "title": "photo 4",
-      "url": "https://picsum.photos/600/600?random=4",
-      "thumbnailUrl": "https://picsum.photos/150/150?random=4"
-    },
-    {
-      "albumId": 1,
-      "id": "5",
-      "title": "photo 5",
-      "url": "https://picsum.photos/600/600?random=5",
-      "thumbnailUrl": "https://picsum.photos/150/150?random=5"
-    },
-    {
       "albumId": 2,
       "id": "51",
       "title": "photo 51",
@@ -793,41 +761,6 @@
       "title": "photo 105",
       "url": "https://picsum.photos/600/600?random=105",
       "thumbnailUrl": "https://picsum.photos/150/150?random=105"
-    },
-    {
-      "albumId": 4,
-      "id": "151",
-      "title": "photo 151",
-      "url": "https://picsum.photos/600/600?random=151",
-      "thumbnailUrl": "https://picsum.photos/150/150?random=151"
-    },
-    {
-      "albumId": 4,
-      "id": "152",
-      "title": "photo 152",
-      "url": "https://picsum.photos/600/600?random=152",
-      "thumbnailUrl": "https://picsum.photos/150/150?random=152"
-    },
-    {
-      "albumId": 4,
-      "id": "153",
-      "title": "photo 153",
-      "url": "https://picsum.photos/600/600?random=153",
-      "thumbnailUrl": "https://picsum.photos/150/150?random=153"
-    },
-    {
-      "albumId": 4,
-      "id": "154",
-      "title": "photo 154",
-      "url": "https://picsum.photos/600/600?random=154",
-      "thumbnailUrl": "https://picsum.photos/150/150?random=154"
-    },
-    {
-      "albumId": 4,
-      "id": "155",
-      "title": "photo 155",
-      "url": "https://picsum.photos/600/600?random=155",
-      "thumbnailUrl": "https://picsum.photos/150/150?random=155"
     },
     {
       "albumId": 5,
